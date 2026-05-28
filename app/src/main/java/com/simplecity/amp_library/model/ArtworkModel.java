@@ -34,8 +34,11 @@ public class ArtworkModel {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        } else if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         ArtworkModel that = (ArtworkModel) o;
 

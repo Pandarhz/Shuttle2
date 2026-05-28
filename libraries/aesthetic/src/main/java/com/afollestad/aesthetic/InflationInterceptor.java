@@ -135,6 +135,8 @@ final class InflationInterceptor implements LayoutInflaterFactory {
       case "android.support.design.widget.CoordinatorLayout":
         view = new AestheticCoordinatorLayout(context, attrs);
         break;
+      default:
+        break;
     }
 
     if (view != null && view.getTag() != null && ":aesthetic_ignore".equals(view.getTag())) {

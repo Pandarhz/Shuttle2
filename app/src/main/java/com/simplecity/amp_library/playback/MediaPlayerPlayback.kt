@@ -50,17 +50,21 @@ internal class MediaPlayerPlayback(context: Context) : LocalPlayback(context), M
             return 0
         }
 
+    private var lastKnownStreamPosition: Long = 0L
+
     override val position: Long
         get() = synchronized(this) {
             if (isInitialized) {
                 try {
-                    return currentMediaPlayer?.currentPosition?.toLong() ?: 0
+                    val currentPosition = currentMediaPlayer?.currentPosition?.toLong() ?: 0
+                    lastKnownStreamPosition = currentPosition
+                    return currentPosition
                 } catch (e: IllegalStateException) {
                     Log.e(TAG, "Error in getPosition() of MediaPlayerPlayback: " + e.localizedMessage)
                 }
 
             }
-            return 0
+            return lastKnownStreamPosition
         }
 
     override val audioSessionId: Int
@@ -296,7 +300,7 @@ internal class MediaPlayerPlayback(context: Context) : LocalPlayback(context), M
     }
 
     override fun updateLastKnownStreamPosition() {
-
+        lastKnownStreamPosition = position
     }
 
     private fun createMediaPlayer(context: Context): MediaPlayer {

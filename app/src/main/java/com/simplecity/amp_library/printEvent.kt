@@ -5,9 +5,11 @@ package com.simplecity.amp_library
 import android.util.Log
 import io.reactivex.*
 
+private const val COMPLETE = "Complete"
+
 inline fun <reified T> printEvent(tag: String, success: T?, error: Throwable?) =
         when {
-            success == null && error == null -> Log.d(tag, "Complete") /* Only with Maybe */
+            success == null && error == null -> Log.d(tag, COMPLETE) /* Only with Maybe */
             success != null -> Log.d(tag, "Success $success")
             error != null -> Log.d(tag, "Error $error")
             else -> -1 /* Cannot happen*/
@@ -15,7 +17,7 @@ inline fun <reified T> printEvent(tag: String, success: T?, error: Throwable?) =
 inline fun printEvent(tag: String, error: Throwable?) =
         when {
             error != null -> Log.d(tag, "Error $error")
-            else -> Log.d(tag, "Complete")
+            else -> Log.d(tag, COMPLETE)
         }
 /**
  * Example usage of [log]:

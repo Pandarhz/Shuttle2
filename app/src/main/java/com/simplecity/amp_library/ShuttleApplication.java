@@ -76,8 +76,8 @@ public class ShuttleApplication extends DaggerApplication {
 
     public HashMap<String, UserSelectedArtwork> userSelectedArtwork = new HashMap<>();
 
-    private static Logger jaudioTaggerLogger1 = Logger.getLogger("org.jaudiotagger.audio");
-    private static Logger jaudioTaggerLogger2 = Logger.getLogger("org.jaudiotagger");
+    private static final Logger JAUDIO_TAGGER_LOGGER_1 = Logger.getLogger("org.jaudiotagger.audio");
+    private static final Logger JAUDIO_TAGGER_LOGGER_2 = Logger.getLogger("org.jaudiotagger");
 
     @Inject
     Repository.SongsRepository songsRepository;
@@ -97,8 +97,6 @@ public class ShuttleApplication extends DaggerApplication {
                 .inject(this);
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
             return;
         }
 
@@ -217,8 +215,8 @@ public class ShuttleApplication extends DaggerApplication {
     public String getVersion() {
         try {
             return getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException | NullPointerException ignored) {
-
+        } catch (PackageManager.NameNotFoundException | NullPointerException e) {
+            Log.w(TAG, "Unable to determine application version", e);
         }
         return "unknown";
     }

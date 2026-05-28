@@ -40,7 +40,7 @@ class AlbumBiographyDialog : DialogFragment() {
         val progressBar = customView.findViewById<ProgressBar>(R.id.progress)
         val message = customView.findViewById<TextView>(R.id.message)
 
-        HttpClient.getInstance().lastFmService.getLastFmAlbumResult(album.albumArtistName, album.name).enqueue(object : Callback<LastFmAlbum> {
+        HttpClient.getInstance().getLastFmService().getLastFmAlbumResult(album.albumArtistName, album.name).enqueue(object : Callback<LastFmAlbum> {
             override fun onResponse(call: Call<LastFmAlbum>, response: Response<LastFmAlbum>) {
                 progressBar.visibility = View.GONE
                 if (response.isSuccessful) {

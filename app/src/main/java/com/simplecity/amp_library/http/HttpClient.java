@@ -14,9 +14,9 @@ public class HttpClient {
 
     private static HttpClient sInstance;
 
-    public OkHttpClient okHttpClient;
+    private OkHttpClient okHttpClient;
 
-    public LastFmService lastFmService;
+    private LastFmService lastFmService;
 
     public static final String TAG_ARTWORK = "artwork";
 
@@ -25,6 +25,14 @@ public class HttpClient {
             sInstance = new HttpClient();
         }
         return sInstance;
+    }
+
+    public OkHttpClient getOkHttpClient() {
+        return okHttpClient;
+    }
+
+    public LastFmService getLastFmService() {
+        return lastFmService;
     }
 
     private HttpClient() {
