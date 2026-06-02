@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.util.AttributeSet;
+
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -73,5 +74,13 @@ public class AestheticFab extends FloatingActionButton {
                 onErrorLogAndRethrow());
   }
 
-  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
+  @Override
+  protected void onDetachedFromWindow() {
+    Util.detach(new Runnable() {
+      @Override
+      public void run() {
+        AestheticFab.super.onDetachedFromWindow();
+      }
+    }, subscription);
+  }
 }
