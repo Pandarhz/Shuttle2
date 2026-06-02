@@ -64,7 +64,6 @@ public class AestheticSpinner extends AppCompatSpinner {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 }

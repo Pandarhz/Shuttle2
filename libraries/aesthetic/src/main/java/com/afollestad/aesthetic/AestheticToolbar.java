@@ -135,7 +135,7 @@ public class AestheticToolbar extends Toolbar {
   protected void onDetachedFromWindow() {
     lastState = null;
     onColorUpdated = null;
-    subscription.dispose();
+    Util.disposeSubscription(subscription);
     super.onDetachedFromWindow();
   }
 }

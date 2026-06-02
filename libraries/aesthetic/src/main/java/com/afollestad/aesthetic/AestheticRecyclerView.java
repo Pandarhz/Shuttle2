@@ -49,7 +49,6 @@ public class AestheticRecyclerView extends RecyclerView {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 }

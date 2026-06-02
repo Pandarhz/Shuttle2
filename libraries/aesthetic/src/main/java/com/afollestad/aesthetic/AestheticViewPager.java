@@ -45,7 +45,6 @@ public class AestheticViewPager extends ViewPager {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 }

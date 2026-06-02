@@ -76,7 +76,6 @@ public class AestheticButton extends AppCompatButton {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 }

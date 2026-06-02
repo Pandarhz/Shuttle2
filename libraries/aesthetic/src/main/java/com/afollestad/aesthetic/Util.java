@@ -28,6 +28,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import io.reactivex.disposables.Disposable;
 import java.lang.reflect.Field;
 
 /** @author Aidan Follestad (afollestad) */
@@ -36,6 +37,17 @@ public final class Util {
 
   static void setInflaterFactory(@NonNull LayoutInflater li) {
     LayoutInflaterCompat.setFactory(li, new InflationInterceptor());
+  }
+
+  static void disposeSubscription(@Nullable Disposable subscription) {
+    if (subscription != null && !subscription.isDisposed()) {
+      subscription.dispose();
+    }
+  }
+
+  static void detach(@NonNull Runnable onDetached, @Nullable Disposable subscription) {
+    disposeSubscription(subscription);
+    onDetached.run();
   }
 
   static Field findField(Class clazz, String... names) throws NoSuchFieldException{

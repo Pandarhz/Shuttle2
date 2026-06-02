@@ -85,7 +85,6 @@ final class AestheticActionMenuItemView extends ActionMenuItemView {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 }

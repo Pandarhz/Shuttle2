@@ -60,8 +60,7 @@ public class AestheticDrawerLayout extends DrawerLayout {
 
   @Override
   protected void onDetachedFromWindow() {
-    subscription.dispose();
-    super.onDetachedFromWindow();
+    Util.detach(super::onDetachedFromWindow, subscription);
   }
 
   @Override
