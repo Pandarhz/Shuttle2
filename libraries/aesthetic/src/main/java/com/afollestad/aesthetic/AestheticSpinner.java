@@ -6,6 +6,7 @@ import static com.afollestad.aesthetic.Util.resolveResId;
 import android.content.Context;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
+
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -62,5 +63,13 @@ public class AestheticSpinner extends AppCompatSpinner {
                 onErrorLogAndRethrow());
   }
 
-  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
+  @Override
+  protected void onDetachedFromWindow() {
+    Util.detach(new Runnable() {
+      @Override
+      public void run() {
+        AestheticSpinner.super.onDetachedFromWindow();
+      }
+    }, subscription);
+  }
 }
