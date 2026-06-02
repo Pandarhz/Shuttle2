@@ -306,6 +306,12 @@ public class FileBrowser {
     }
 
     <T extends Comparable<T>> int nullCompare(T a, T b) {
-        return a == null ? (b == null ? 0 : Integer.MIN_VALUE) : (b == null ? Integer.MAX_VALUE : a.compareTo(b));
+        if (a == null) {
+            return b == null ? 0 : Integer.MIN_VALUE;
+        } else if (b == null) {
+            return Integer.MAX_VALUE;
+        } else {
+            return a.compareTo(b);
+        }
     }
 }

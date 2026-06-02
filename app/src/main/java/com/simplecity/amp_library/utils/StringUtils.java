@@ -28,8 +28,6 @@ public class StringUtils {
 
     /**
      * Method makeTimeString.
-     * <p>
-     * Todo: Move to StringUtils or somewhere else
      *
      * @param context Context
      * @param secs long
@@ -283,7 +281,8 @@ public class StringUtils {
         int matches = 0;
         for (int mi = 0; mi < min.length(); mi++) {
             final char c1 = min.charAt(mi);
-            for (int xi = Math.max(mi - range, 0), xn = Math.min(mi + range + 1, max.length()); xi < xn; xi++) {
+            final int xn = Math.min(mi + range + 1, max.length());
+            for (int xi = Math.max(mi - range, 0); xi < xn; xi++) {
                 if (!matchFlags[xi] && c1 == max.charAt(xi)) {
                     matchIndexes[mi] = xi;
                     matchFlags[xi] = true;
@@ -294,13 +293,15 @@ public class StringUtils {
         }
         final char[] ms1 = new char[matches];
         final char[] ms2 = new char[matches];
-        for (int i = 0, si = 0; i < min.length(); i++) {
+        int si = 0;
+        for (int i = 0; i < min.length(); i++) {
             if (matchIndexes[i] != -1) {
                 ms1[si] = min.charAt(i);
                 si++;
             }
         }
-        for (int i = 0, si = 0; i < max.length(); i++) {
+        si = 0;
+        for (int i = 0; i < max.length(); i++) {
             if (matchFlags[i]) {
                 ms2[si] = max.charAt(i);
                 si++;

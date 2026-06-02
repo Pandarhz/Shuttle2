@@ -41,13 +41,11 @@ class PlaylistManager @Inject constructor(
     private val settingsManager: SettingsManager
 ) {
 
-    interface PlaylistIds {
-        companion object {
-            const val RECENTLY_ADDED_PLAYLIST: Long = -2
-            const val MOST_PLAYED_PLAYLIST: Long = -3
-            const val PODCASTS_PLAYLIST: Long = -4
-            const val RECENTLY_PLAYED_PLAYLIST: Long = -5
-        }
+    object PlaylistIds {
+        const val RECENTLY_ADDED_PLAYLIST: Long = -2
+        const val MOST_PLAYED_PLAYLIST: Long = -3
+        const val PODCASTS_PLAYLIST: Long = -4
+        const val RECENTLY_PLAYED_PLAYLIST: Long = -5
     }
 
     fun clearMostPlayed() {
@@ -88,7 +86,7 @@ class PlaylistManager @Inject constructor(
                             messageText.text = getPlaylistRemoveString(duplicates[0])
                             applyToAll.text = String.format(applicationContext.getString(R.string.dialog_checkbox_playlist_duplicate_apply_all), duplicates.size)
 
-                            // Fixme: Should not use application context to present dialog.
+                            // TODO: Should not use application context to present dialog.
                             MaterialDialog.Builder(applicationContext)
                                 .title(R.string.dialog_title_playlist_duplicates)
                                 .customView(customView, false)

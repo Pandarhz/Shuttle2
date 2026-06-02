@@ -38,6 +38,7 @@ public class SquareFrameLayout extends FrameLayout {
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(widthDominant ? getMeasuredWidth() : getMeasuredHeight(), widthDominant ? getMeasuredWidth() : getMeasuredHeight());
+        int size = widthDominant ? getMeasuredWidth() : getMeasuredHeight();
+        setMeasuredDimension(size, size);
     }
 }

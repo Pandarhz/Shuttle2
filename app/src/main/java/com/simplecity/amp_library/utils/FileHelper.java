@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.WorkerThread;
 import android.text.TextUtils;
+import android.util.Log;
 import com.annimon.stream.Stream;
 import com.simplecity.amp_library.data.Repository;
 import com.simplecity.amp_library.model.BaseFileObject;
@@ -26,7 +27,10 @@ import java.util.NoSuchElementException;
 
 public class FileHelper {
 
-    private final static String TAG = "FileHelper";
+    private static final String TAG = "FileHelper";
+
+    private FileHelper() {
+    }
 
     /**
      * The root directory
@@ -142,8 +146,8 @@ public class FileHelper {
                 file = resolveSymlink(file);
                 filePath = file.getAbsolutePath();
             }
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            Log.w(TAG, "Failed to resolve symlink for path: " + filePath, e);
         }
 
         if (!TextUtils.isEmpty(filePath) && filePath.equals("/storage/emulated/0") ||
@@ -284,7 +288,7 @@ public class FileHelper {
      * @return true if the deletion was successful
      */
     public static boolean deleteFile(File file) {
-        return DeleteRecursive(file);
+        return deleteRecursive(file);
     }
 
     /**
@@ -293,14 +297,14 @@ public class FileHelper {
      * @param fileOrDirectory the file or directory to delete
      * @return true id the deletion was successful
      */
-    private static boolean DeleteRecursive(File fileOrDirectory) {
+    private static boolean deleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory == null) {
             return false;
         } else if (fileOrDirectory.isDirectory()) {
             File[] fileList = fileOrDirectory.listFiles();
             if (fileList != null) {
                 for (File child : fileList)
-                    DeleteRecursive(child);
+                    deleteRecursive(child);
             }
         }
         return fileOrDirectory.delete();
@@ -338,7 +342,7 @@ public class FileHelper {
     /**
      * An array of accepted/supported audio extensions.
      */
-    public static String[] sExtensions = new String[] {
+    private static final String[] sExtensions = new String[] {
             "mp3", "3gp", "mp4", "m4a",
             "aac", "ts", "flac", "mid",
             "xmf", "mxmf", "midi", "rtttl",
