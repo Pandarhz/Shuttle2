@@ -38,8 +38,7 @@ public class HttpClient {
     private HttpClient() {
 
         okHttpClient = new OkHttpClient.Builder()
-                //                .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("192.168.0.3", 8888)))
-                .build();
+            .build();
 
         Retrofit lastFmRestAdapter = new Retrofit.Builder()
                 .baseUrl(URL_LAST_FM)
