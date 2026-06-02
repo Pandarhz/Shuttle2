@@ -262,11 +262,7 @@ public class FileBrowser {
         return (Comparator<BaseFileObject>) (lhs, rhs) -> lhs.name.compareToIgnoreCase(rhs.name);
     }
 
-    //    private Comparator durationComparator() {
-    //        return (Comparator<FileObject>) (lhs, rhs) -> (int) (rhs.duration - lhs.duration);
-    //    }
-
-    private Comparator trackNumberComparator() {
+    private Comparator<BaseFileObject> sizeComparator() {
         return (Comparator<FileObject>) (lhs, rhs) -> lhs.tagInfo.trackNumber - rhs.tagInfo.trackNumber;
     }
 

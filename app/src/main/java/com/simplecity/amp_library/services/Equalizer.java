@@ -181,21 +181,6 @@ public class Equalizer {
             }
         }
 
-        //        public void enableReverb(boolean enable) {
-        //            if (enable != mPresetReverb.getEnabled()) {
-        //                if (!enable) {
-        //                    mPresetReverb.setPreset((short) 0);
-        //                }
-        //                mPresetReverb.setEnabled(enable);
-        //            }
-        //        }
-
-        //        public void setReverbPreset(short preset) {
-        //            if (mPresetReverb.getEnabled() && mPresetReverb.getPreset() != preset) {
-        //                mPresetReverb.setPreset(preset);
-        //            }
-        //        }
-
         public void release() {
             equalizer.release();
             bassBoost.release();
