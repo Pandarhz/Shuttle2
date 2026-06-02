@@ -28,46 +28,6 @@ public class AestheticSwitchCompat extends SwitchCompat {
   }
 
   public AestheticSwitchCompat(Context context, AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-    init(context, attrs);
-  }
-
-  private void init(Context context, AttributeSet attrs) {
-    if (attrs != null) {
-      backgroundResId = resolveResId(context, attrs, android.R.attr.background);
-    }
-  }
-
-  private void invalidateColors(ColorIsDarkState state) {
-    TintHelper.setTint(this, state.color(), state.isDark());
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    //noinspection ConstantConditions
-    subscription =
-        Observable.combineLatest(
-                ViewUtil.getObservableForResId(
-                    getContext(), backgroundResId, Aesthetic.get(getContext()).colorAccent()),
-                Aesthetic.get(getContext()).isDark(),
-                ColorIsDarkState.creator())
-            .compose(Rx.<ColorIsDarkState>distinctToMainThread())
-            .subscribe(
-                new Consumer<ColorIsDarkState>() {
-                  @Override
-                  public void accept(@NonNull ColorIsDarkState colorIsDarkState) {
-                    invalidateColors(colorIsDarkState);
-                  }
-                },
-                onErrorLogAndRethrow());
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(new Runnable() {
-      @Override
-      public void run() {
         AestheticSwitchCompat.super.onDetachedFromWindow();
       }
     }, subscription);

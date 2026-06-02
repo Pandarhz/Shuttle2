@@ -26,33 +26,6 @@ public class AestheticRecyclerView extends RecyclerView {
   public AestheticRecyclerView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
   }
-
-  private void invalidateColors(int color) {
-    EdgeGlowUtil.setEdgeGlowColor(this, color, null);
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    subscription =
-        Aesthetic.get(getContext())
-            .colorAccent()
-            .compose(Rx.<Integer>distinctToMainThread())
-            .subscribe(
-                new Consumer<Integer>() {
-                  @Override
-                  public void accept(@NonNull Integer color) {
-                    invalidateColors(color);
-                  }
-                },
-                onErrorLogAndRethrow());
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(new Runnable() {
-      @Override
-      public void run() {
         AestheticRecyclerView.super.onDetachedFromWindow();
       }
     }, subscription);

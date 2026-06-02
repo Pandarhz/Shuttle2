@@ -30,29 +30,6 @@ public class AestheticProgressBar extends MaterialProgressBar {
   private void invalidateColors(int color) {
     TintHelper.setTint(this, color);
   }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    subscription =
-        Aesthetic.get(getContext())
-            .colorAccent()
-            .compose(Rx.<Integer>distinctToMainThread())
-            .subscribe(
-                new Consumer<Integer>() {
-                  @Override
-                  public void accept(@NonNull Integer color) {
-                    invalidateColors(color);
-                  }
-                },
-                onErrorLogAndRethrow());
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(new Runnable() {
-      @Override
-      public void run() {
         AestheticProgressBar.super.onDetachedFromWindow();
       }
     }, subscription);
