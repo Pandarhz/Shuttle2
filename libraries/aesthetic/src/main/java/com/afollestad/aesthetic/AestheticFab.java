@@ -54,27 +54,6 @@ public class AestheticFab extends FloatingActionButton {
   }
 
   @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    //noinspection ConstantConditions
-    subscription =
-        Observable.combineLatest(
-                ViewUtil.getObservableForResId(
-                    getContext(), backgroundResId, Aesthetic.get(getContext()).colorAccent()),
-                Aesthetic.get(getContext()).isDark(),
-                ColorIsDarkState.creator())
-            .compose(Rx.<ColorIsDarkState>distinctToMainThread())
-            .subscribe(
-                new Consumer<ColorIsDarkState>() {
-                  @Override
-                  public void accept(@NonNull ColorIsDarkState colorIsDarkState) {
-                    invalidateColors(colorIsDarkState);
-                  }
-                },
-                onErrorLogAndRethrow());
-  }
-
-  @Override
   protected void onDetachedFromWindow() {
     Util.detach(new Runnable() {
       @Override

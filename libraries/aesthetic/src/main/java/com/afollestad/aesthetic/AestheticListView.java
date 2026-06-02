@@ -20,39 +20,6 @@ public class AestheticListView extends ListView {
   }
 
   public AestheticListView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  public AestheticListView(Context context, AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-  }
-
-  private void invalidateColors(int color) {
-    EdgeGlowUtil.setEdgeGlowColor(this, color);
-  }
-
-  @Override
-  protected void onAttachedToWindow() {
-    super.onAttachedToWindow();
-    subscription =
-        Aesthetic.get(getContext())
-            .colorAccent()
-            .compose(Rx.<Integer>distinctToMainThread())
-            .subscribe(
-                new Consumer<Integer>() {
-                  @Override
-                  public void accept(@NonNull Integer color) {
-                    invalidateColors(color);
-                  }
-                },
-                onErrorLogAndRethrow());
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(new Runnable() {
-      @Override
-      public void run() {
         AestheticListView.super.onDetachedFromWindow();
       }
     }, subscription);
