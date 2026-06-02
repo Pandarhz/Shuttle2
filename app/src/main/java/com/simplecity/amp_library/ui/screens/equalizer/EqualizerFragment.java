@@ -29,6 +29,7 @@ import com.simplecity.amp_library.constants.OpenSLESConstants;
 import com.simplecity.amp_library.services.Equalizer;
 import com.simplecity.amp_library.ui.adapters.RobotoSpinnerAdapter;
 import com.simplecity.amp_library.ui.screens.drawer.DrawerLockManager;
+import com.simplecity.amp_library.ui.screens.drawer.LockUtils;
 import com.simplecity.amp_library.ui.screens.drawer.MiniPlayerLockManager;
 import com.simplecity.amp_library.ui.common.BaseFragment;
 import com.simplecity.amp_library.ui.views.SizableSeekBar;
@@ -374,16 +375,14 @@ public class EqualizerFragment extends BaseFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        DrawerLockManager.getInstance().addDrawerLock(this);
-        MiniPlayerLockManager.getInstance().addMiniPlayerLock(this);
+        LockUtils.addDrawerAndMiniPlayerLock(this, this);
 
         updateUI();
     }
 
     @Override
     public void onPause() {
-        DrawerLockManager.getInstance().removeDrawerLock(this);
-        MiniPlayerLockManager.getInstance().removeMiniPlayerLock(this);
+        LockUtils.removeDrawerAndMiniPlayerLock(this, this);
 
         super.onPause();
     }

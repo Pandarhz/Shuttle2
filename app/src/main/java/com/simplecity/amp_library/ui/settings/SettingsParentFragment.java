@@ -33,6 +33,7 @@ import com.simplecity.amp_library.ui.dialog.ChangelogDialog;
 import com.simplecity.amp_library.ui.dialog.InclExclDialog;
 import com.simplecity.amp_library.ui.dialog.UpgradeDialog;
 import com.simplecity.amp_library.ui.screens.drawer.DrawerLockManager;
+import com.simplecity.amp_library.ui.screens.drawer.LockUtils;
 import com.simplecity.amp_library.ui.screens.drawer.MiniPlayerLockManager;
 import com.simplecity.amp_library.utils.AnalyticsManager;
 import com.simplecity.amp_library.utils.SettingsManager;
@@ -105,14 +106,12 @@ public class SettingsParentFragment extends BaseNavigationController implements
     @Override
     public void onResume() {
         super.onResume();
-        DrawerLockManager.getInstance().addDrawerLock(this);
-        MiniPlayerLockManager.getInstance().addMiniPlayerLock(this);
+        LockUtils.addDrawerAndMiniPlayerLock(this, this);
     }
 
     @Override
     public void onPause() {
-        DrawerLockManager.getInstance().removeDrawerLock(this);
-        MiniPlayerLockManager.getInstance().removeMiniPlayerLock(this);
+        LockUtils.removeDrawerAndMiniPlayerLock(this, this);
         super.onPause();
     }
 

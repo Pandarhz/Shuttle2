@@ -33,6 +33,7 @@ import com.simplecity.amp_library.model.BaseFileObject;
 import com.simplecity.amp_library.model.InclExclItem;
 import com.simplecity.amp_library.model.Song;
 import com.simplecity.amp_library.ui.common.BaseFragment;
+import com.simplecity.amp_library.ui.screens.drawer.LockUtils;
 import com.simplecity.amp_library.ui.dialog.SongInfoDialog;
 import com.simplecity.amp_library.ui.modelviews.BreadcrumbsView;
 import com.simplecity.amp_library.ui.modelviews.FolderView;
@@ -257,7 +258,7 @@ public class FolderFragment extends BaseFragment implements
         getNavigationController().addBackPressListener(this);
 
         if (!displayedInTabs) {
-            DrawerLockManager.getInstance().addDrawerLock(this);
+            LockUtils.addDrawerLock(this);
         }
 
         if (isVisible()) {
@@ -272,7 +273,7 @@ public class FolderFragment extends BaseFragment implements
         getNavigationController().removeBackPressListener(this);
 
         if (!displayedInTabs) {
-            DrawerLockManager.getInstance().removeDrawerLock(this);
+            LockUtils.removeDrawerLock(this);
         }
 
         super.onPause();
