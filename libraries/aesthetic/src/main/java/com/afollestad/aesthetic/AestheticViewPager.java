@@ -43,8 +43,5 @@ public class AestheticViewPager extends ViewPager {
                 onErrorLogAndRethrow());
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 }

@@ -58,10 +58,7 @@ public class AestheticDrawerLayout extends DrawerLayout {
                 onErrorLogAndRethrow());
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 
   @Override
   public void addDrawerListener(@NonNull DrawerListener listener) {

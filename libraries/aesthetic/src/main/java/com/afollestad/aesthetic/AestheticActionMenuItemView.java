@@ -83,8 +83,5 @@ final class AestheticActionMenuItemView extends ActionMenuItemView {
                 onErrorLogAndRethrow());
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 }

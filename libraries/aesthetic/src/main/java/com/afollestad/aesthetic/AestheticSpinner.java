@@ -62,8 +62,5 @@ public class AestheticSpinner extends AppCompatSpinner {
                 onErrorLogAndRethrow());
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 }

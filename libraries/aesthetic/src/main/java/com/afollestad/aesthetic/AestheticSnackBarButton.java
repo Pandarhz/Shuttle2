@@ -32,8 +32,5 @@ final class AestheticSnackBarButton extends AppCompatButton {
             .subscribe(ViewTextColorAction.create(this));
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 }

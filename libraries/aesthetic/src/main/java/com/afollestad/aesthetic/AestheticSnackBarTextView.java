@@ -34,8 +34,5 @@ final class AestheticSnackBarTextView extends AppCompatTextView {
             .subscribe(ViewTextColorAction.create(this), onErrorLogAndRethrow());
   }
 
-  @Override
-  protected void onDetachedFromWindow() {
-    Util.detach(super::onDetachedFromWindow, subscription);
-  }
+  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
 }
