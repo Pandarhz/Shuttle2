@@ -5,6 +5,7 @@ import static com.afollestad.aesthetic.Rx.onErrorLogAndRethrow;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
+
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -47,5 +48,13 @@ public class AestheticListView extends ListView {
                 onErrorLogAndRethrow());
   }
 
-  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
+  @Override
+  protected void onDetachedFromWindow() {
+    Util.detach(new Runnable() {
+      @Override
+      public void run() {
+        AestheticListView.super.onDetachedFromWindow();
+      }
+    }, subscription);
+  }
 }
