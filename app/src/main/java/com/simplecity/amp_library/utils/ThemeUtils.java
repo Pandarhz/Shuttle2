@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class ThemeUtils {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     private ThemeUtils() {
         //no instance
