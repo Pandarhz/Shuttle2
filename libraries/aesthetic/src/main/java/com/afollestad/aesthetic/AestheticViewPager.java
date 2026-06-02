@@ -5,6 +5,7 @@ import static com.afollestad.aesthetic.Rx.onErrorLogAndRethrow;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -43,5 +44,13 @@ public class AestheticViewPager extends ViewPager {
                 onErrorLogAndRethrow());
   }
 
-  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
+  @Override
+  protected void onDetachedFromWindow() {
+    Util.detach(new Runnable() {
+      @Override
+      public void run() {
+        AestheticViewPager.super.onDetachedFromWindow();
+      }
+    }, subscription);
+  }
 }
