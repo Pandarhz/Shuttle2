@@ -39,7 +39,7 @@ public class MediaManager {
 
     private SettingsManager settingsManager;
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new SecureRandom();
 
     @Inject
     public MediaManager(AnalyticsManager analyticsManager, SettingsManager settingsManager) {
