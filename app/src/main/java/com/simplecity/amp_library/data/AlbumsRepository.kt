@@ -19,7 +19,7 @@ class AlbumsRepository @Inject constructor(private val songsRepository: Reposito
     private val albumsRelay = BehaviorRelay.create<List<Album>>()
 
     override fun getAlbums(): Observable<List<Album>> {
-        if (albumsSubscription == null || albumsSubscription?.isDisposed == true) {
+        if (albumsSubscription == null || albumsSubscription?.isDisposed ?: false) {
             albumsSubscription = songsRepository.getSongs()
                 .flatMap { songs -> Observable.just(Operators.songsToAlbums(songs)) }
                 .subscribe(

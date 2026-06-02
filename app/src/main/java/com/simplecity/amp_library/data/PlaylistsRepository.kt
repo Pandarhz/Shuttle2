@@ -29,7 +29,7 @@ class PlaylistsRepository @Inject constructor(
     private val playlistsRelay = BehaviorRelay.create<List<Playlist>>()
 
     override fun getPlaylists(): Observable<List<Playlist>> {
-        if (playlistsSubscription == null || playlistsSubscription?.isDisposed == true) {
+        if (playlistsSubscription == null || playlistsSubscription?.isDisposed ?: false) {
             playlistsSubscription = SqlBriteUtils.createObservableList(
                 context,
                 { cursor -> Playlist(context, cursor) },

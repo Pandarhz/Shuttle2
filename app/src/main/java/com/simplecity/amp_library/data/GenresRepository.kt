@@ -19,7 +19,7 @@ class GenresRepository @Inject constructor(private val application: ShuttleAppli
     private val genresRelay = BehaviorRelay.create<List<Genre>>()
 
     override fun getGenres(): Observable<List<Genre>> {
-        if (genresSubscription == null || genresSubscription?.isDisposed == true) {
+        if (genresSubscription == null || genresSubscription?.isDisposed ?: false) {
             genresSubscription = SqlBriteUtils.createObservableList<Genre>(application, { Genre(it) }, Genre.getQuery())
                 .subscribe(
                     genresRelay,

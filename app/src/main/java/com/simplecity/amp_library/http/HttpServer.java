@@ -157,7 +157,8 @@ public class HttpServer {
         if (audioInputStream != null) {
             try {
                 audioInputStream.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                Log.w(TAG, "Error closing audio stream", e);
             }
         }
     }
@@ -166,39 +167,43 @@ public class HttpServer {
         if (imageInputStream != null) {
             try {
                 imageInputStream.close();
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                Log.w(TAG, "Error closing image stream", e);
             }
         }
     }
+    private static Map<String, String> createMimeTypes() {
+        Map<String, String> m = new HashMap<>();
+        m.put("css", "text/css");
+        m.put("htm", "text/html");
+        m.put("html", "text/html");
+        m.put("xml", "text/xml");
+        m.put("java", "text/x-java-source, text/java");
+        m.put("md", "text/plain");
+        m.put("txt", "text/plain");
+        m.put("asc", "text/plain");
+        m.put("gif", "image/gif");
+        m.put("jpg", "image/jpeg");
+        m.put("jpeg", "image/jpeg");
+        m.put("png", "image/png");
+        m.put("mp3", "audio/mpeg");
+        m.put("m3u", "audio/mpeg-url");
+        m.put("mp4", "video/mp4");
+        m.put("ogv", "video/ogg");
+        m.put("flv", "video/x-flv");
+        m.put("mov", "video/quicktime");
+        m.put("swf", "application/x-shockwave-flash");
+        m.put("js", "application/javascript");
+        m.put("pdf", "application/pdf");
+        m.put("doc", "application/msword");
+        m.put("ogg", "application/x-ogg");
+        m.put("zip", "application/octet-stream");
+        m.put("exe", "application/octet-stream");
+        m.put("class", "application/octet-stream");
+        return m;
+    }
 
-    private final Map<String, String> MIME_TYPES = new HashMap<String, String>() {{
-        put("css", "text/css");
-        put("htm", "text/html");
-        put("html", "text/html");
-        put("xml", "text/xml");
-        put("java", "text/x-java-source, text/java");
-        put("md", "text/plain");
-        put("txt", "text/plain");
-        put("asc", "text/plain");
-        put("gif", "image/gif");
-        put("jpg", "image/jpeg");
-        put("jpeg", "image/jpeg");
-        put("png", "image/png");
-        put("mp3", "audio/mpeg");
-        put("m3u", "audio/mpeg-url");
-        put("mp4", "video/mp4");
-        put("ogv", "video/ogg");
-        put("flv", "video/x-flv");
-        put("mov", "video/quicktime");
-        put("swf", "application/x-shockwave-flash");
-        put("js", "application/javascript");
-        put("pdf", "application/pdf");
-        put("doc", "application/msword");
-        put("ogg", "application/x-ogg");
-        put("zip", "application/octet-stream");
-        put("exe", "application/octet-stream");
-        put("class", "application/octet-stream");
-    }};
+    private final Map<String, String> MIME_TYPES = createMimeTypes();
 
     String getMimeType(String filePath) {
         return MIME_TYPES.get(filePath.substring(filePath.lastIndexOf(".") + 1));
