@@ -5,7 +5,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0" />
     <title>Shuttle Music Player - Help &amp; Information</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link id="theme-style" rel="stylesheet" href="styles.css" />
+    <script type="text/javascript">
+        (function() {
+            var query = window.location.search.substring(1);
+            if (!query) return;
+
+            var params = query.split('&').reduce(function(map, part) {
+                var pair = part.split('=');
+                if (pair[0]) {
+                    map[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+                }
+                return map;
+            }, {});
+
+            if (params.theme === 'dark') {
+                document.getElementById('theme-style').setAttribute('href', 'styles_dark.css');
+                document.title = 'Shuttle Music Player - Help & Information (Dark)';
+            }
+        })();
+    </script>
 </head>
 
 <body>
