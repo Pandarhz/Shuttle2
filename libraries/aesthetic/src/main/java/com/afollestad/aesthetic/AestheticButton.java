@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
+
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
@@ -44,7 +45,8 @@ public class AestheticButton extends AppCompatButton {
     ColorStateList textColorSl =
         new ColorStateList(
             new int[][] {
-              new int[] {android.R.attr.state_enabled}, new int[] {-android.R.attr.state_enabled}
+              new int[] {android.R.attr.state_enabled},
+              new int[] {-android.R.attr.state_enabled}
             },
             new int[] {
               Util.isColorLight(state.color()) ? Color.BLACK : Color.WHITE,
@@ -74,5 +76,13 @@ public class AestheticButton extends AppCompatButton {
                 onErrorLogAndRethrow());
   }
 
-  @Override protected void onDetachedFromWindow() { Util.detach(super::onDetachedFromWindow, subscription); }
+  @Override
+  protected void onDetachedFromWindow() {
+    Util.detach(new Runnable() {
+      @Override
+      public void run() {
+        AestheticButton.super.onDetachedFromWindow();
+      }
+    }, subscription);
+  }
 }
